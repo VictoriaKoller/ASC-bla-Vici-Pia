@@ -1,4 +1,4 @@
-# Welcome to ASC-bla's documentation!
+# Welcome to ASC-bla's documentation from Vici and Pia!
 
 
 ASC-bla is a C++ library for basic linear algebra operations.

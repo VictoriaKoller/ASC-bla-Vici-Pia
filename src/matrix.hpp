@@ -26,8 +26,8 @@ namespace ASC_bla
           }
           return transposed;
         }
-        int row_size() const { return row_size; }
-        int column_size() const{ return column_size;}
+        int get_row_size() const { return row_size; }
+        int get_column_size() const{ return column_size;}
         T & operator()(int i, int j) { return data[i*column_size + j]; }
         const T & operator()(int i, int j) const { return data[i*column_size + j];}
   };
@@ -35,11 +35,11 @@ namespace ASC_bla
   template <typename T>
   Matrix<T> operator* (const Matrix<T> & A, const Matrix<T> & B)
   {
-    Matrix<T> multiplied(A.row_size(), B.column_size());
-    for (int i = 0; i < A.row_size(); i++){
-      for(int j = 0; j< B.column_size(); j++){
+    Matrix<T> multiplied(A.get_row_size(), B.get_column_size());
+    for (int i = 0; i < A.get_row_size(); i++){
+      for(int j = 0; j< B.get_column_size(); j++){
         double element = 0;
-        for(int k= 0; k<A.column_size(); k++){
+        for(int k= 0; k<A.get_column_size(); k++){
           element+= A(i,k)*B(k,j);
         }
         multiplied.set_value(i,j, element);
@@ -52,10 +52,10 @@ namespace ASC_bla
    template <typename T>
   Vector<T> operator* (const Matrix<T> & A, const Vector<T> & b)
   {
-    Vector<T> multiplied(A.row_size());
-    for(int i = 0; i<A.row_size(); i++){
+    Vector<T> multiplied(A.get_row_size());
+    for(int i = 0; i<A.get_row_size(); i++){
       T sum = 0;
-      for(int k = 0; k<A.column_size(); k++){
+      for(int k = 0; k<A.get_column_size(); k++){
         sum += A(i,k)*b(k);
       }
       multiplied(i) = sum;
@@ -70,9 +70,9 @@ namespace ASC_bla
 template <typename T>
   std::ostream & operator<< (std::ostream & ost, const Matrix<T> & m)
   {
-    if (m.row_size() > 0 && m.column_size() >0){
-    for (int i = 0; i < m.row_size(); i++){
-      for(int j = 0; j<m.column_size();j++){
+    if (m.get_row_size() > 0 && m.get_column_size() >0){
+    for (int i = 0; i < m.get_row_size(); i++){
+      for(int j = 0; j<m.get_column_size();j++){
         ost << m(i,j) << ", " ;
       }
         ost<< std::endl;

@@ -6,8 +6,8 @@ namespace ASC_bla
 
 
   template <typename T, ORDERING ORD>
-  class MatrixView {
-    protected:
+  class MatrixView: public MatrixExpr<MatrixView<T, ORD>>{
+    public:
       int row_size, column_size, dist;
       T * data;
       public:
@@ -28,12 +28,19 @@ namespace ASC_bla
 
         for (size_t i = 0; i < row_size; i++){
             for(size_t j=0; j<column_size; j++){
-            data[dist*i] = m2(i);
-
+            data[dist*i + j] = (TB)m2(i, j);////////////////////////////////????????????????????
             }
         }
         return *this;
       }
+
+      // T * data() const { return data; }
+      // int column_size() const { return column_size; }
+      // int row_size() const { return row_size; }
+
+      //  auto dist() const { return dist; }
+      const T & operator()(int i, int j) const { return data[i*column_size + j];}
+
   };
 
 
@@ -112,11 +119,11 @@ namespace ASC_bla
 
 
 template <typename T>
-  std::ostream & operator<< (std::ostream & ost, const Matrix<T> & m)
+  std::ostream & operator<< (std::ostream & ost, const MatrixView<T, ColMajor > & m)
   {
-    if (m.get_row_size() > 0 && m.get_column_size() >0){
-    for (int i = 0; i < m.get_row_size(); i++){
-      for(int j = 0; j<m.get_column_size();j++){
+    if (m.row_size > 0 && m.column_size >0){
+    for (int i = 0; i < m.row_size; i++){
+      for(int j = 0; j<m.column_size;j++){
         ost << m(i,j) << ", " ;
       }
         ost<< std::endl;

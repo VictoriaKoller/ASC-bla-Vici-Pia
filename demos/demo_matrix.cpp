@@ -26,6 +26,8 @@ int main()
   std::cout<<B.transpose();
   bla::Matrix<double> M = A*B;
   std::cout<<M;
+
+
   for (size_t i = 0; i < x.size(); i++)
     {
       x(i) = i;
@@ -37,4 +39,7 @@ int main()
   std::cout << "x+y = " << z << std::endl;
   std::cout<<x <<std::endl;
   std::cout<< A*x;
+
+  std::cout<<"A und B addiert:";
+  std::cout << A+B;
 }

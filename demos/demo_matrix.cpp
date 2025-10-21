@@ -26,7 +26,7 @@ int main()
   std::cout<<B.transpose();
   bla::Matrix<double> M = A*B;
   std::cout<<M;
-  for (size_t i = 0; i < x.Size(); i++)
+  for (size_t i = 0; i < x.size(); i++)
     {
       x(i) = i;
       y(i) = 10;

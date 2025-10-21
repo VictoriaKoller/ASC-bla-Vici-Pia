@@ -1,16 +1,60 @@
 #include <iostream>
-
+#include <matrixexpr.hpp>
 namespace ASC_bla
 {
+  enum ORDERING { ColMajor, RowMajor };
+
+
+  template <typename T, ORDERING ORD>
+  class MatrixView {
+    protected:
+      int row_size, column_size, dist;
+      T * data;
+      public:
+        MatrixView()=default;
+        MatrixView(int row_size, int column_size, int dist)
+        : row_size(row_size), column_size(column_size), dist(dist), data(new T[row_size*column_size]){
+          dist = 1;
+          ;
+        }
+
+
+        //matrix view
+      template <typename TB>
+      MatrixView& operator= (const MatrixExpr<TB> & m2)
+      {
+        assert (row_size == m2.row_size());
+        assert (column_size == m2.column_size());
+
+        for (size_t i = 0; i < row_size; i++){
+            for(size_t j=0; j<column_size; j++){
+            data[dist*i] = m2(i);
+
+            }
+        }
+        return *this;
+      }
+  };
+
+
     template <typename T>
-    class Matrix
+    class Matrix :public MatrixView <T, ColMajor>
   {
-    int  row_size;
-    int  column_size;
-    T * data;
+    typedef MatrixView <T, ColMajor> BASE;
+    using BASE::row_size;
+    using BASE::column_size;
+    using BASE::dist;
+    using BASE::data;
+    //int  row_size;
+    //int  column_size;
     public:
         Matrix (int row_size, int column_size) 
-        : row_size(row_size), column_size(column_size), data(new T[row_size*column_size]) { 
+        { 
+          this->row_size = row_size;
+          this->column_size = column_size;
+          this->data = new T[row_size*column_size];
+          //row_size(row_size), column_size(column_size), data(new T[row_size*column_size])
+          
           std::cout << "constructed matrix with row_size " << row_size << " and column_size " <<column_size <<std::endl;
           ; }
         void set_value(int i, int j, T value){
@@ -82,5 +126,12 @@ template <typename T>
       
     return ost;
   }
+
+
+
+
+
+
+
   
 }

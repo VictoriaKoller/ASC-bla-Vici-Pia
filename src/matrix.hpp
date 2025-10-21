@@ -28,7 +28,7 @@ namespace ASC_bla
 
         for (size_t i = 0; i < row_size; i++){
             for(size_t j=0; j<column_size; j++){
-            data[dist*i + j] = (TB)m2(i, j);////////////////////////////////????????????????????
+            data[dist*i + j] = m2(i, j);
             }
         }
         return *this;

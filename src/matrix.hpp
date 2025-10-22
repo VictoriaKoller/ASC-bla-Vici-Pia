@@ -7,7 +7,7 @@ namespace ASC_bla
 
   template <typename T, ORDERING ORD>
   class MatrixView: public MatrixExpr<MatrixView<T, ORD>>{
-    public:
+    protected:
       int row_size, column_size, dist;
       T * data;
       public:
@@ -17,6 +17,9 @@ namespace ASC_bla
           dist = 1;
           ;
         }
+      template<typename TDIST2>
+      MatrixView(const MatrixView<T, ORD>& m2)
+      : data(m2.data()), row_size(m2.Rows()), column_size(m2.Cols()), dist(m2.Dist()) { }
 
 
         //matrix view
@@ -35,10 +38,10 @@ namespace ASC_bla
       }
 
       // T * data() const { return data; }
-      // int column_size() const { return column_size; }
-      // int row_size() const { return row_size; }
+      int Cols() const { return column_size; }
+      int Rows() const { return row_size; }
 
-      //  auto dist() const { return dist; }
+      auto Dist() const { return dist; }
       const T & operator()(int i, int j) const { return data[i*column_size + j];}
 
   };
@@ -55,18 +58,21 @@ namespace ASC_bla
     //int  row_size;
     //int  column_size;
     public:
-        Matrix (int row_size, int column_size) 
-        { 
-          this->row_size = row_size;
-          this->column_size = column_size;
-          this->data = new T[row_size*column_size];
-          //row_size(row_size), column_size(column_size), data(new T[row_size*column_size])
+        // Matrix (int row_size, int column_size) 
+        // { 
+        //   this->row_size = row_size;
+        //   this->column_size = column_size;
+        //   this->data = new T[row_size*column_size];
+        //   //row_size(row_size), column_size(column_size), data(new T[row_size*column_size])
           
-          std::cout << "constructed matrix with row_size " << row_size << " and column_size " <<column_size <<std::endl;
-          ; }
+        //   std::cout << "constructed matrix with row_size " << row_size << " and column_size " <<column_size <<std::endl;
+        //   ; }
         void set_value(int i, int j, T value){
           data[i*column_size + j] = value;
         }
+
+        Matrix(int rows, int cols)
+        : MatrixView<T, ColMajor>(rows, cols, 1){ }
 
         Matrix<T> transpose(){
           Matrix<T> transposed(column_size,row_size);
@@ -81,6 +87,9 @@ namespace ASC_bla
         int get_column_size() const{ return column_size;}
         T & operator()(int i, int j) { return data[i*column_size + j]; }
         const T & operator()(int i, int j) const { return data[i*column_size + j];}
+
+        using BASE::operator=;
+
   };
 
   template <typename T>
@@ -100,30 +109,31 @@ namespace ASC_bla
   }
 
 
-   template <typename T>
-  Vector<T> operator* (const Matrix<T> & A, const Vector<T> & b)
-  {
-    Vector<T> multiplied(A.get_row_size());
-    for(int i = 0; i<A.get_row_size(); i++){
-      T sum = 0;
-      for(int k = 0; k<A.get_column_size(); k++){
-        sum += A(i,k)*b(k);
-      }
-      multiplied(i) = sum;
-    }
+  //  template <typename T>
+  // Vector<T> operator* (const Matrix<T> & A, const Vector<T> & b)
+  // {
+  //   Vector<T> multiplied(A.get_row_size());
+  //   for(int i = 0; i<A.get_row_size(); i++){
+  //     T sum = 0;
+  //     for(int k = 0; k<A.get_column_size(); k++){
+  //       sum += A(i,k)*b(k);
+  //     }
+  //     multiplied(i) = sum;
+  //   }
 
-    return multiplied;
+  //   return multiplied;
 
-  }
+  // }
 
 
 
 template <typename T>
   std::ostream & operator<< (std::ostream & ost, const MatrixView<T, ColMajor > & m)
   {
-    if (m.row_size > 0 && m.column_size >0){
-    for (int i = 0; i < m.row_size; i++){
-      for(int j = 0; j<m.column_size;j++){
+    std::cout<<"operator<<in MatrixView\n";
+    if (m.Rows() > 0 && m.Cols() >0){
+    for (int i = 0; i < m.Rows(); i++){
+      for(int j = 0; j<m.Cols();j++){
         ost << m(i,j) << ", " ;
       }
         ost<< std::endl;

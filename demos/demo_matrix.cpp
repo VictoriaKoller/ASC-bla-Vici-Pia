@@ -16,7 +16,7 @@ int main()
   for(int i = 0; i<n; i++){
     for(int j = 0; j<n; j++){
       A.set_value(i,j,i*j);
-      B.set_value(i,j,-i*j+i);
+      B.set_value(i,j,i*j+i);
 
     }
   }
@@ -40,6 +40,16 @@ int main()
   std::cout<<x <<std::endl;
   std::cout<< A*x;
 
-  std::cout<<"A und B addiert:";
-  std::cout << A+B;
+  std::cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+  std::cout<<A;
+  std::cout<<B;
+  std::cout<<"A und B addiert:\n";
+  bla::SumMatrixExpr<bla::MatrixView<double,bla::ColMajor>, bla::MatrixView<double, bla::ColMajor>> sum = A+B;
+  std::cout << sum(0,0);
+  std::cout << sum(1,0);
+  std::cout << sum(3,3);
+  std::cout << sum;
+  std::cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+  std::cout << A*x;
+
 }

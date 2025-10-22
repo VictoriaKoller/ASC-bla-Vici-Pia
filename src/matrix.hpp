@@ -92,21 +92,21 @@ namespace ASC_bla
 
   };
 
-  template <typename T>
-  Matrix<T> operator* (const Matrix<T> & A, const Matrix<T> & B)
-  {
-    Matrix<T> multiplied(A.get_row_size(), B.get_column_size());
-    for (int i = 0; i < A.get_row_size(); i++){
-      for(int j = 0; j< B.get_column_size(); j++){
-        double element = 0;
-        for(int k= 0; k<A.get_column_size(); k++){
-          element+= A(i,k)*B(k,j);
-        }
-        multiplied.set_value(i,j, element);
-      }
-    }
-    return multiplied;
-  }
+  // template <typename T>
+  // Matrix<T> operator* (const Matrix<T> & A, const Matrix<T> & B)
+  // {
+  //   Matrix<T> multiplied(A.get_row_size(), B.get_column_size());
+  //   for (int i = 0; i < A.get_row_size(); i++){
+  //     for(int j = 0; j< B.get_column_size(); j++){
+  //       double element = 0;
+  //       for(int k= 0; k<A.get_column_size(); k++){
+  //         element+= A(i,k)*B(k,j);
+  //       }
+  //       multiplied.set_value(i,j, element);
+  //     }
+  //   }
+  //   return multiplied;
+  // }
 
 
   //  template <typename T>

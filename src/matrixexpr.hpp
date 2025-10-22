@@ -30,12 +30,12 @@ namespace ASC_bla{
 
 
     template <typename TA, typename TB>
-  class MultiMatrixExpr : public VecExpr<MultiMatrixExpr<TA,TB>>
+  class MultiMatrixVecExpr : public VecExpr<MultiMatrixVecExpr<TA,TB>>
   {
     TA A;
     TB b;
   public:
-    MultiMatrixExpr (TA _a, TB _b) : A(_a), b(_b) { 
+    MultiMatrixVecExpr (TA _a, TB _b) : A(_a), b(_b) { 
     }
     auto operator() (int i) const { 
       double value = 0;
@@ -47,6 +47,23 @@ namespace ASC_bla{
     //size_t size() const { return a.size(); }      
   };
 
+      template <typename TA, typename TB>
+  class MultiMatrixExpr : public MatrixExpr<MultiMatrixExpr<TA,TB>>
+  {
+    TA A;
+    TB B;
+  public:
+    MultiMatrixExpr (TA _a, TB _b) : A(_a), B(_b) { 
+      std::cout<<"MultiMatrixExpr erstellt";
+    }
+    auto operator() (int i, int j) const { 
+      double value = 0;
+      for (int k = 0; k< 5; k++){ //////////////////////////////////////////rowsize Problem again
+        value+= A(i,k)*B(k, j);
+      }
+
+        return value;}
+  };
 
 
 
@@ -62,8 +79,17 @@ namespace ASC_bla{
   auto operator* (const MatrixExpr<TA> & a, const VecExpr<TB> & b)
   {
     std::cout<<"used * in MatrixExpr with Vektor!!\n";
+    return MultiMatrixVecExpr(a.derived(), b.derived());
+  }
+
+
+   template <typename TA, typename TB>
+  auto operator* (const MatrixExpr<TA> & a, const MatrixExpr<TB> & b)
+  {
+    std::cout<<"used * in MatrixExpr with Matrix!!\n";
     return MultiMatrixExpr(a.derived(), b.derived());
   }
+
 
 
 ////////////////////////////////////find row/column problem here
@@ -71,6 +97,7 @@ namespace ASC_bla{
   std::ostream & operator<< (std::ostream & ost, const MatrixExpr<T> & m)
   {
     std::cout << "operator-MatrixExpr\n";
+    std::cout<< m(0,0);
    ////////////////////////sizes
      //if (m.row_size() > 0 && m.column_size() >0){
     for (int i = 0; i < 5; i++){

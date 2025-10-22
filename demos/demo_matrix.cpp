@@ -21,12 +21,6 @@ int main()
     }
   }
 
-  std::cout<<A;
-  std::cout<<B;
-  std::cout<<B.transpose();
-  bla::Matrix<double> M = A*B;
-  std::cout<<M;
-
 
   for (size_t i = 0; i < x.size(); i++)
     {
@@ -35,21 +29,20 @@ int main()
     }
 
   bla::Vector<double> z = x+y;
-  
   std::cout << "x+y = " << z << std::endl;
-  std::cout<<x <<std::endl;
-  std::cout<< A*x;
 
-  std::cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+  std::cout<<"\n~~~~~~~~~~~~~~~~A und B ~~~~~~~~~~~~~~~~~~~\n";
   std::cout<<A;
   std::cout<<B;
-  std::cout<<"A und B addiert:\n";
+  std::cout<<"~~~~~~~~~~~~~~~A + B ~~~~~~~~~~~~~~~~~~~~~~\n";
   bla::SumMatrixExpr<bla::MatrixView<double,bla::ColMajor>, bla::MatrixView<double, bla::ColMajor>> sum = A+B;
-  std::cout << sum(0,0);
-  std::cout << sum(1,0);
-  std::cout << sum(3,3);
   std::cout << sum;
-  std::cout<<"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n";
+  std::cout<<"~~~~~~~~~~~~~~~~~x~~~~~~~~~~~~~~~~~~~~\n";
+  std::cout<<x;
+  std::cout<<"\n~~~~~~~~~~~~~~~~~A*x mit expressions~~~~~~~~~~~~~~~~~~\n";
   std::cout << A*x;
+  std::cout<<"\n~~~~~~~~~~~~~~~A * B ~~~~~~~~~~~~~~~~~~~~~~\n";
+  std::cout <<A*B;
+
 
 }

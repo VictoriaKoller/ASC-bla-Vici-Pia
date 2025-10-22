@@ -48,6 +48,7 @@ namespace ASC_bla
 
     T * data() const { return m_data; }
     size_t size() const { return m_size; }
+
     auto dist() const { return m_dist; }
     
     T & operator()(size_t i) { return m_data[m_dist*i]; }
@@ -57,6 +58,7 @@ namespace ASC_bla
       assert(first <= next && next <= m_size);
       return VectorView(next-first, m_dist, m_data+first*m_dist);
     }
+     
 
     auto slice(size_t first, size_t slice) const {
       return VectorView<T,size_t> (m_size/slice, m_dist*slice, m_data+first*m_dist);

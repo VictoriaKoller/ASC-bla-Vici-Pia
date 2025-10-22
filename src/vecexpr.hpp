@@ -77,10 +77,9 @@ namespace ASC_bla
   template <typename T>
   std::ostream & operator<< (std::ostream & ost, const VecExpr<T> & v)
   {
-    std::cout<< "tried printing VecExpr\n";
-    // if (v.size() > 0)
-    //   ost << v(0);
-    for (size_t i = 0; i < 5; i++)   ///////////////////////////////////size!!!!!!!!!
+     if (v.size() > 0)
+       ost << v(0);
+    for (size_t i = 1; i < v.size(); i++)  
       ost << ", " << v(i);
     return ost;
   }

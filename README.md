@@ -4,7 +4,7 @@ A simple basic linear algebra implementation using modern C++.
 
 Read the [Documentation](https://tuwien-asc.github.io/ASC-bla/intro.html)
 
-
+Read my [Docu](https://github.com/VictoriaKoller/ASC-bla-Vici-Pia/blob/main/docs/intro.md).
 telling the truth: ASC-bla is not really a complete library,
 but a starting point for writing your own library, for example as a student's project.
 Here are notes on the

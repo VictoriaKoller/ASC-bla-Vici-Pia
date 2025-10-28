@@ -1,5 +1,9 @@
-from ngsolve import *
+import sys, os
+sys.path.append(r"C:\Users\victo\Documents\vivi\university\Semester5\ScientificComputing\Vici_Pia_repository\ASC-bla-Vici-Pia\build")
+os.add_dll_directory(r"C:\msys64\ucrt64\bin")
+#from ngsolve import *
 from time import time
+from bla import Matrix
 
 n = 1
 
@@ -13,8 +17,10 @@ while n <= 1024:
 
     ts = time()
     for i in range(runs):
-        C = A*B
+        C= A+B 
+    print(C)
     te = time()
+
     print ('n = ', n, ' time = ', (te-ts)/runs)
     data.append( (n, (te-ts)/runs) )
 

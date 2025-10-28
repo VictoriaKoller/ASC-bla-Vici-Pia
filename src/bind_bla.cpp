@@ -2,18 +2,51 @@
 #include <pybind11/pybind11.h>
 
 #include "vector.hpp"
+#include "matrix.hpp"
+
 
 using namespace ASC_bla;
 namespace py = pybind11;
 
+//enum ORDERING { ColMajor, RowMajor };
+
+  //enum ORDERING { ColMajor, RowMajor };
 
 
 
 PYBIND11_MODULE(bla, m) {
     m.doc() = "Basic linear algebra module"; // optional module docstring
     
-   // py::class_<Matrix<double>> (m, "Matrix")
-   // .def(py::init<int>)()
+
+
+   py::class_<Matrix<double>> (m, "Matrix")
+    .def(py::init<int, int>(), "create matrix of given size")
+    .def("__add__", [](Matrix<double> & self, Matrix<double> & other)
+       { return self+other; 
+      })
+       .def("__str__", [](const Matrix<double> & self)
+      {
+        std::stringstream str;
+        str << self;
+        return str.str();
+      });
+
+    py::class_<MatrixView<double, ORDERING::ColMajor>> (m, "MatrixView")
+    .def(py::init<int, int, int>(), "create MatrixView");
+
+
+
+       py::class_<SumMatrixExpr<MatrixView<double, ORDERING::ColMajor>, MatrixView<double, ORDERING::ColMajor>>>(m, "SumMatrixExpr")
+     .def(py::init<MatrixView<double, ORDERING::ColMajor>, MatrixView<double, ORDERING::ColMajor>>(), "create matrix_expression")
+     .def("__str__", [](const SumMatrixExpr<MatrixView<double, ORDERING::ColMajor>, MatrixView<double, ORDERING::ColMajor>> & self)
+      {
+        std::stringstream str;
+        str << self;
+        return str.str();
+      });
+
+     
+
 
 
     py::class_<Vector<double>> (m, "Vector")

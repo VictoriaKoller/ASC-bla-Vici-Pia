@@ -5,7 +5,7 @@ namespace ASC_bla
   enum ORDERING { ColMajor, RowMajor };
 
 
-  template <typename T, ORDERING ORD>
+  template <typename T, ORDERING ORD> 
   class MatrixView: public MatrixExpr<MatrixView<T, ORD>>{
     protected:
       int row_size, column_size, dist;

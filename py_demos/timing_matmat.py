@@ -17,7 +17,7 @@ while n <= 1024:
 
     ts = time()
     for i in range(runs):
-        C= A+B 
+        A+B 
     print(C)
     te = time()
 

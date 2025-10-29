@@ -24,6 +24,9 @@ PYBIND11_MODULE(bla, m) {
     .def("__add__", [](Matrix<double> & self, Matrix<double> & other)
        { return self+other; 
       })
+       .def("__multiply__", [](Matrix<double> & self, Matrix<double> & other)
+       { return self*other; 
+      })
        .def("__str__", [](const Matrix<double> & self)
       {
         std::stringstream str;
@@ -34,6 +37,7 @@ PYBIND11_MODULE(bla, m) {
     py::class_<MatrixView<double, ORDERING::ColMajor>> (m, "MatrixView")
     .def(py::init<int, int, int>(), "create MatrixView");
 
+    
 
 
        py::class_<SumMatrixExpr<MatrixView<double, ORDERING::ColMajor>, MatrixView<double, ORDERING::ColMajor>>>(m, "SumMatrixExpr")
@@ -45,7 +49,14 @@ PYBIND11_MODULE(bla, m) {
         return str.str();
       });
 
-     
+      py::class_<MultiMatrixExpr<MatrixView<double, ORDERING::ColMajor>, MatrixView<double, ORDERING::ColMajor>>>(m, "MultiMatrixExpr")
+     .def(py::init<MatrixView<double, ORDERING::ColMajor>, MatrixView<double, ORDERING::ColMajor>>(), "create multi matrix_expression")
+     .def("__str__", [](const MultiMatrixExpr<MatrixView<double, ORDERING::ColMajor>, MatrixView<double, ORDERING::ColMajor>> & self)
+      {
+        std::stringstream str;
+        str << self;
+        return str.str();
+      });
 
 
 

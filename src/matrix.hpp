@@ -40,9 +40,13 @@ namespace ASC_bla
       // T * data() const { return data; }
       int Cols() const { return column_size; }
       int Rows() const { return row_size; }
+      T * Data() const {return data;}
 
       auto Dist() const { return dist; }
       const T & operator()(int i, int j) const { return data[i*column_size + j];}
+
+
+    
 
   };
 

@@ -8,7 +8,7 @@ from bla import Matrix
 n = 1
 
 data = []
-while n <= 1024:
+while n < 1024:
     n = 2*n
 
     A = Matrix(n,n)
@@ -17,10 +17,8 @@ while n <= 1024:
 
     ts = time()
     for i in range(runs):
-        A+B 
-    print(C)
+        C = A*B
     te = time()
-
     print ('n = ', n, ' time = ', (te-ts)/runs)
     data.append( (n, (te-ts)/runs) )
 

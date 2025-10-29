@@ -22,10 +22,28 @@ PYBIND11_MODULE(bla, m) {
    py::class_<Matrix<double>> (m, "Matrix")
     .def(py::init<int, int>(), "create matrix of given size")
     .def("__add__", [](Matrix<double> & self, Matrix<double> & other)
-       { return self+other; 
+      {  SumMatrixExpr<MatrixView<double, ORDERING::ColMajor>, MatrixView<double, ORDERING::ColMajor>> sum = self+other;
+        Matrix<double> matrix = Matrix<double>(self.Rows(), self.Cols());
+        for(int i = 0; i < self.Rows(); i++ ){
+          for(int j = 0; j < self.Cols(); j++ ){
+          matrix.set_value(i,j, sum(i,j));
+          //std::cout<<"help";
+        }}
+
+        return matrix; 
       })
-       .def("__multiply__", [](Matrix<double> & self, Matrix<double> & other)
-       { return self*other; 
+       .def("__mul__", [](Matrix<double> & self, Matrix<double> & other)
+       {
+        MultiMatrixExpr<MatrixView<double, ORDERING::ColMajor>, MatrixView<double, ORDERING::ColMajor>> multipl = self*other;
+       Matrix<double> matrix = Matrix<double>(self.Rows(), self.Cols());
+        for(int i = 0; i < self.Rows(); i++ ){
+          for(int j = 0; j < self.Cols(); j++ ){
+          matrix.set_value(i,j, multipl(i,j));
+          //std::cout<<"help";
+        }}
+
+
+        return matrix; 
       })
        .def("__str__", [](const Matrix<double> & self)
       {

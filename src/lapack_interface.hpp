@@ -27,7 +27,7 @@ typedef int L_fp;
 
 
 extern "C" {
-#include <clapack.h>
+  #include <clapack.h>
 }
 
 
@@ -84,16 +84,16 @@ namespace ASC_bla
 
     int err =
       dgemm_ (&transa_, &transb_, &n, &m, &k, &alpha, 
-              a.Data(), &lda, b.data(), &ldb, &beta, c.Data(), &ldc);
+              a.Data(), &lda, b.Data(), &ldb, &beta, c.Data(), &ldc);
 
     if (err != 0)
       throw std::runtime_error(std::string("MultMatMat got error "+std::to_string(err)));
   }
                        
-  // template <ORDERING OA, ORDERING OB>
+  //  template <ORDERING OA, ORDERING OB>
   // int multMatMatLapack (MatrixView<double, OA> a,
-  //                       MatrixView<double, OB> b,
-  //                       MatrixView<double, RowMajor> c)
+  //                        MatrixView<double, OB> b,
+  //                        MatrixView<double, RowMajor> c)
   // {
   //   multMatMatLapack (trans(b), trans(a), trans(c));
   // }

@@ -1,6 +1,6 @@
 # Welcome to ASC-bla's documentation from Vici and Pia!
-
-
+ Project made by Victoria Koller (12307778).
+ 
 ASC-bla is a C++ library for basic linear algebra operations.
 The library provides template classes **Vector** and **Matrix**.
 

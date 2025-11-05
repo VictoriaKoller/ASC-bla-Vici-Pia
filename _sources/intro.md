@@ -71,3 +71,11 @@ Vector col1 = product.Col(1);
 some changes ...  
 
    
+# Matrix Klasse
+
+Berechnung über Expressions und MatrixViews! 
+
+# timing.matmat.py
+
+Testung der Multiplikation von Matrizen auf Zeit! Es wird die Matrix-Klasse aus C++ verwendet, die über pybind eingebunden wurde!
+

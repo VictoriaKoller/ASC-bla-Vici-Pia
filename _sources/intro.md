@@ -73,9 +73,32 @@ some changes ...
    
 # Matrix Klasse
 
-Berechnung über Expressions und MatrixViews! 
+Berechnung von Multiplikation und Addition über Expressions und MatrixViews! 
 
 # timing.matmat.py
 
 Testung der Multiplikation von Matrizen auf Zeit! Es wird die Matrix-Klasse aus C++ verwendet, die über pybind eingebunden wurde!
 
+```
+from time import time
+from bla import Matrix
+
+n = 1
+
+data = []
+while n < 1024:
+    n = 2*n
+
+    A = Matrix(n,n)
+    B = Matrix(n,n)
+    runs =  1+int(min( 1e8 / n**3, 1000))
+
+    ts = time()
+    for i in range(runs):
+        C = A*B
+    te = time()
+    print ('n = ', n, ' time = ', (te-ts)/runs)
+    data.append( (n, (te-ts)/runs) )
+
+print (data)
+```

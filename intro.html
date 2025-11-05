@@ -423,11 +423,34 @@ default is row-major.</p>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="matrix-klasse">
 <h1>Matrix Klasse<a class="headerlink" href="#matrix-klasse" title="Link to this heading">#</a></h1>
-<p>Berechnung über Expressions und MatrixViews!</p>
+<p>Berechnung von Multiplikation und Addition über Expressions und MatrixViews!</p>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="timing-matmat-py">
 <h1><a class="reference external" href="http://timing.matmat.py">timing.matmat.py</a><a class="headerlink" href="#timing-matmat-py" title="Link to this heading">#</a></h1>
 <p>Testung der Multiplikation von Matrizen auf Zeit! Es wird die Matrix-Klasse aus C++ verwendet, die über pybind eingebunden wurde!</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">time</span> <span class="kn">import</span> <span class="n">time</span>
+<span class="kn">from</span> <span class="nn">bla</span> <span class="kn">import</span> <span class="n">Matrix</span>
+
+<span class="n">n</span> <span class="o">=</span> <span class="mi">1</span>
+
+<span class="n">data</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">while</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="mi">1024</span><span class="p">:</span>
+    <span class="n">n</span> <span class="o">=</span> <span class="mi">2</span><span class="o">*</span><span class="n">n</span>
+
+    <span class="n">A</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">B</span> <span class="o">=</span> <span class="n">Matrix</span><span class="p">(</span><span class="n">n</span><span class="p">,</span><span class="n">n</span><span class="p">)</span>
+    <span class="n">runs</span> <span class="o">=</span>  <span class="mi">1</span><span class="o">+</span><span class="nb">int</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span> <span class="mf">1e8</span> <span class="o">/</span> <span class="n">n</span><span class="o">**</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1000</span><span class="p">))</span>
+
+    <span class="n">ts</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">runs</span><span class="p">):</span>
+        <span class="n">C</span> <span class="o">=</span> <span class="n">A</span><span class="o">*</span><span class="n">B</span>
+    <span class="n">te</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+    <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;n = &#39;</span><span class="p">,</span> <span class="n">n</span><span class="p">,</span> <span class="s1">&#39; time = &#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">te</span><span class="o">-</span><span class="n">ts</span><span class="p">)</span><span class="o">/</span><span class="n">runs</span><span class="p">)</span>
+    <span class="n">data</span><span class="o">.</span><span class="n">append</span><span class="p">(</span> <span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="p">(</span><span class="n">te</span><span class="o">-</span><span class="n">ts</span><span class="p">)</span><span class="o">/</span><span class="n">runs</span><span class="p">)</span> <span class="p">)</span>
+
+<span class="nb">print</span> <span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
 
     <script type="text/x-thebe-config">
